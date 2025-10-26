@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardContent } from '@/components/ui/card'
+import { saveRSVP } from '@/app/api/rsvp/client'
 
 interface RSVPData {
   name: string
@@ -33,36 +34,12 @@ export default function RSVPForm({ onSubmit, onClose, showToast }: RSVPFormProps
     setIsSubmitting(true)
     
     try {
-      // Para GitHub Pages, guardamos en localStorage como fallback
-      const existingRSVPs = JSON.parse(localStorage.getItem('rsvps') || '[]')
-      const newRSVP = {
-        ...rsvpData,
-        id: Date.now().toString(),
-        confirmed: true,
-        createdAt: new Date().toISOString()
-      }
+      const result = await saveRSVP(rsvpData)
       
-      const updatedRSVPs = [...existingRSVPs, newRSVP]
-      localStorage.setItem('rsvps', JSON.stringify(updatedRSVPs))
-      
-      // También intentamos enviar a la API si está disponible
-      try {
-        const response = await fetch('/api/rsvp', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(rsvpData),
-        })
-
-        if (response.ok) {
-          showToast('¡Gracias por confirmar tu asistencia! Nos vemos en la fiesta 🎉')
-        } else {
-          showToast('¡Gracias por confirmar! Tu respuesta ha sido guardada localmente.')
-        }
-      } catch (apiError) {
-        console.log('API no disponible, guardando localmente')
-        showToast('¡Gracias por confirmar! Tu respuesta ha sido guardada localmente.')
+      if (result && result.success) {
+        showToast(result.message || '¡Gracias por confirmar tu asistencia! Nos vemos en la fiesta 🎉')
+      } else {
+        showToast((result && result.message) || 'Error al confirmar.')
       }
       
       onSubmit(rsvpData)
