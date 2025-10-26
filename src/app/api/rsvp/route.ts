@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 
+// Configurar para exportación estática
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export async function POST(request: Request) {
   try {
     const { name, guests, message } = await request.json();
@@ -43,7 +47,7 @@ export async function GET() {
     const { data, error } = await supabase
       .from('rsvp')
       .select('*')
-      .order('createdAt', { ascending: false });
+      .order('created_at', { ascending: false });
 
     if (error) {
       console.error('Error al obtener RSVPs:', error);
