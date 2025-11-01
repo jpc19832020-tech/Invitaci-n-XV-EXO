@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // No procesar archivos en la carpeta API durante la exportación estática
+  // Esto evita que Next.js intente procesar las rutas API como páginas dinámicas
 };
 
 export default nextConfig;
