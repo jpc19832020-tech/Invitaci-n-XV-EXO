@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 
-// Configurar para exportación estática
-export const dynamic = 'force-static';
+// Configurar para modo dinámico (no estático)
+export const dynamic = 'force-dynamic';
 export const revalidate = false;
 
 export async function POST(request: Request) {
