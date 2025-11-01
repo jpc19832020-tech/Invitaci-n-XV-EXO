@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+# Nota: Este workflow requiere un GITHUB_TOKEN con permisos "id-token: write"
+# Para configurar: Settings → Developer settings → Personal access tokens → Generate new token
+# Seleccionar permisos: "repo" (incluye write permissions) y "workflow"
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest

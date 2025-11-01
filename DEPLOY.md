@@ -23,6 +23,14 @@ Ve a tu repositorio → Settings → Secrets and variables → Actions repositor
 Agrega este secret (opcional):
 - `NEXT_PUBLIC_APP_URL`: URL de tu aplicación (ej: https://tu-usuario.github.io/15-AÑOS)
 
+### 3. Configurar Personal Access Token
+El workflow requiere un token con permisos especiales:
+1. Ve a Settings → Developer settings → Personal access tokens → Generate new token
+2. Selecciona permisos: "repo" (incluye write permissions) y "workflow"
+3. Genera el token y cópialo
+4. Ve a tu repositorio → Settings → Secrets and variables → Actions repository secrets
+5. Agrega un secret llamado `GITHUB_TOKEN` con el valor del token generado
+
 ### 3. Activar GitHub Pages
 1. Ve a Settings → Pages
 2. Source: "Deploy from a branch"
