@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardContent } from '@/components/ui/card'
-import { saveRSVP } from '@/app/api/rsvp/client'
+import { saveRSVP } from '@/lib/rsvp'
 
 interface RSVPData {
   name: string
