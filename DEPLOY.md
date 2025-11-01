@@ -22,7 +22,7 @@ Ve a tu repositorio → Settings → Secrets and variables → Actions repositor
 
 Agrega estos secrets:
 - `NEXT_PUBLIC_SUPABASE_URL`: `https://sqoxgyluyakgacfvptux.supabase.co`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNxb3hneWx1eWFrZ2FjZnZwdHV4Iiwicm9sZSI6ImFub24iLCJleHAiOjE3NzE0OTQwNTQsImV4cCI6MjA3NzA3MDA1NH0.hVVEABtWOfCNDFT8BN21qxs8CVTRfQ`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNxb3hneWx1eWFrZ2FjZnZwdHV4Iiwicm9sZSI6ImFub24iLCJleHAiOjE3NzE0OTQwNTQsImV4cCI6MjA3NzA3MDA1NH0.hVVEABtWOfCNDFT8BN21qxs8CVTRfmbV6MpqaKVlHGs`
 
 ### 3. Activar GitHub Pages
 1. Ve a Settings → Pages

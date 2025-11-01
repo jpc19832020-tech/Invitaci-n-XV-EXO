@@ -27,20 +27,26 @@ export async function saveRSVP(rsvpData: { name: string; guests: string; message
     
     // Intentar guardar en Supabase si está disponible
     try {
-      const { data, error } = await supabase
-        .from('rsvp')
-        .insert([
-          {
-            name: rsvpData.name,
-            guests: parseInt(rsvpData.guests) || 1,
-            message: rsvpData.message,
-            confirmed: true
-          }
-        ])
-        .select();
+      const supabaseClient = supabase;
+      if (supabaseClient) {
+        const { data, error } = await (supabaseClient as any)
+          .from('rsvp')
+          .insert([
+            {
+              name: rsvpData.name,
+              guests: parseInt(rsvpData.guests) || 1,
+              message: rsvpData.message,
+              confirmed: true
+            }
+          ])
+          .select();
 
-      if (!error) {
-        return { success: true, message: "¡Guardado en la nube y localmente!" };
+        if (!error) {
+          return { success: true, message: "¡Guardado en la nube y localmente!" };
+        }
+      } else {
+        console.log('Cliente de Supabase no disponible, guardando localmente');
+        return { success: true, message: "¡Guardado localmente!" };
       }
     } catch (supabaseError) {
       console.log('Supabase no disponible, guardando localmente');
@@ -55,13 +61,18 @@ export async function saveRSVP(rsvpData: { name: string; guests: string; message
 export async function getRSVPs(): Promise<RSVP[]> {
   try {
     // Intentar obtener de Supabase
-    const { data, error } = await supabase
-      .from('rsvp')
-      .select('*')
-      .order('created_at', { ascending: false });
+    const supabaseClient = supabase;
+    if (supabaseClient) {
+      const { data, error } = await (supabaseClient as any)
+        .from('rsvp')
+        .select('*')
+        .order('created_at', { ascending: false });
 
-    if (!error && data) {
-      return data;
+      if (!error && data) {
+        return data;
+      }
+    } else {
+      console.log('Cliente de Supabase no disponible, obteniendo del localStorage');
     }
   } catch (supabaseError) {
     console.log('Supabase no disponible, obteniendo del localStorage');
