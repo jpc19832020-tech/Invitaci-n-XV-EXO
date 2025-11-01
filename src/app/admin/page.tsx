@@ -24,24 +24,7 @@ export default function AdminPage() {
     try {
       setLoading(true)
       
-      // Intentar obtener de la API primero (solo en desarrollo)
-      if (process.env.NODE_ENV !== 'production') {
-        try {
-          const response = await fetch('/api/rsvp')
-          const result = await response.json()
-
-          if (response.ok && result.data) {
-            setRsvps(result.data)
-            setError('')
-            setLoading(false)
-            return
-          }
-        } catch (apiError) {
-          console.log('API no disponible, usando localStorage')
-        }
-      }
-      
-      // Usar localStorage como respaldo (para producción y cuando la API no está disponible)
+      // Usar localStorage directamente
       const storedRSVPs = JSON.parse(localStorage.getItem('rsvps') || '[]')
       setRsvps(storedRSVPs)
       setError('')

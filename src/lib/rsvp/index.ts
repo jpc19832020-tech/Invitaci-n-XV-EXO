@@ -1,6 +1,3 @@
-// Cliente para Supabase que funciona en el cliente
-import { supabase } from '@/lib/supabase';
-
 export interface RSVP {
   id: string;
   name: string;
@@ -12,7 +9,7 @@ export interface RSVP {
 
 export async function saveRSVP(rsvpData: { name: string; guests: string; message: string }) {
   try {
-    // Guardar en localStorage como respaldo
+    // Guardar en localStorage
     const existingRSVPs = JSON.parse(localStorage.getItem('rsvps') || '[]');
     const newRSVP: RSVP = {
       ...rsvpData,
@@ -25,33 +22,7 @@ export async function saveRSVP(rsvpData: { name: string; guests: string; message
     const updatedRSVPs = [...existingRSVPs, newRSVP];
     localStorage.setItem('rsvps', JSON.stringify(updatedRSVPs));
     
-    // Intentar guardar en Supabase si está disponible
-    try {
-      const supabaseClient = supabase;
-      if (supabaseClient) {
-        const { data, error } = await (supabaseClient as any)
-          .from('rsvp')
-          .insert([
-            {
-              name: rsvpData.name,
-              guests: parseInt(rsvpData.guests) || 1,
-              message: rsvpData.message,
-              confirmed: true
-            }
-          ])
-          .select();
-
-        if (!error) {
-          return { success: true, message: "¡Guardado en la nube y localmente!" };
-        }
-      } else {
-        console.log('Cliente de Supabase no disponible, guardando localmente');
-        return { success: true, message: "¡Guardado localmente!" };
-      }
-    } catch (supabaseError) {
-      console.log('Supabase no disponible, guardando localmente');
-      return { success: true, message: "¡Guardado localmente!" };
-    }
+    return { success: true, message: "¡Guardado exitosamente!" };
   } catch (error) {
     console.error('Error al guardar RSVP:', error);
     return { success: false, message: "Error al guardar" };
@@ -60,24 +31,10 @@ export async function saveRSVP(rsvpData: { name: string; guests: string; message
 
 export async function getRSVPs(): Promise<RSVP[]> {
   try {
-    // Intentar obtener de Supabase
-    const supabaseClient = supabase;
-    if (supabaseClient) {
-      const { data, error } = await (supabaseClient as any)
-        .from('rsvp')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (!error && data) {
-        return data;
-      }
-    } else {
-      console.log('Cliente de Supabase no disponible, obteniendo del localStorage');
-    }
-  } catch (supabaseError) {
-    console.log('Supabase no disponible, obteniendo del localStorage');
+    // Obtener de localStorage
+    return JSON.parse(localStorage.getItem('rsvps') || '[]');
+  } catch (error) {
+    console.error('Error al obtener RSVPs:', error);
+    return [];
   }
-
-  // Fallback a localStorage
-  return JSON.parse(localStorage.getItem('rsvps') || '[]');
 }

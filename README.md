@@ -17,7 +17,7 @@ Una invitación digital interactiva para la fiesta de XV años de Sofía Isabel.
 - **TypeScript** - Tipado seguro
 - **Tailwind CSS** - Estilos modernos
 - **Framer Motion** - Animaciones fluidas
-- **Supabase** - Base de datos en la nube
+- **LocalStorage** - Almacenamiento local en el navegador
 - **shadcn/ui** - Componentes UI de alta calidad
 
 ## 📦 Instalación
@@ -30,41 +30,27 @@ cd 15-AÑOS
 # Instalar dependencias
 npm install
 
-# Configurar variables de entorno
-cp .env.example .env
-# Editar .env con tus credenciales de Supabase
+# El proyecto no requiere configuración adicional
+# Funciona directamente con localStorage
 
 # Ejecutar en desarrollo
 npm run dev
 ```
 
-## 🔧 Configuración de Supabase
+## 🔧 Configuración
 
-1. Crear un proyecto en [Supabase](https://supabase.com)
-2. Crear una tabla llamada `rsvp` con las siguientes columnas:
-   - `id` (text, primary key)
-   - `name` (text)
-   - `guests` (integer)
-   - `message` (text, optional)
-   - `confirmed` (boolean)
-   - `created_at` (timestamp)
-   - `updated_at` (timestamp)
-3. Copiar las credenciales al archivo `.env`:
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=tu-url-de-supabase
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-clave-anonima
-   ```
+El proyecto no requiere configuración externa:
+- Usa localStorage del navegador para guardar las confirmaciones
+- No se necesita base de datos externa
+- Funciona completamente en GitHub Pages sin configuración adicional
 
 ## 🌐 Despliegue en GitHub Pages
 
 Este proyecto está configurado para desplegarse automáticamente en GitHub Pages:
 
 1. **Hacer fork** del repositorio
-2. **Configurar Secrets** en GitHub:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-3. **Activar GitHub Pages** en la configuración del repositorio
-4. **Hacer push** a la rama `main`
+2. **Activar GitHub Pages** en la configuración del repositorio
+3. **Hacer push** a la rama `main`
 
 El despliegue se realizará automáticamente mediante GitHub Actions.
 
@@ -74,14 +60,12 @@ El despliegue se realizará automáticamente mediante GitHub Actions.
 src/
 ├── app/
 │   ├── page.tsx          # Página principal
-│   ├── admin/page.tsx    # Panel de administración
-│   └── api/
-│       └── rsvp/route.ts # API para confirmaciones
+│   └── admin/page.tsx    # Panel de administración
 ├── components/
 │   ├── ui/               # Componentes UI de shadcn
 │   └── rsvp-form.tsx     # Formulario de RSVP
 └── lib/
-    ├── supabase.ts        # Cliente de Supabase
+    ├── rsvp/index.ts      # Funciones de RSVP con localStorage
     └── utils.ts           # Utilidades
 ```
 
@@ -100,9 +84,8 @@ src/
 
 ## 🔒 Variables de Entorno
 
-- `NEXT_PUBLIC_SUPABASE_URL`: URL del proyecto Supabase
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Clave anónima de Supabase
 - `NODE_ENV`: Entorno (development/production)
+- `NEXT_PUBLIC_APP_URL`: URL de la aplicación (opcional)
 
 ## 📝 Scripts Disponibles
 

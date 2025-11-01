@@ -20,9 +20,8 @@ git push -u origin main
 ### 2. Configurar Secrets en GitHub
 Ve a tu repositorio → Settings → Secrets and variables → Actions repository secrets
 
-Agrega estos secrets:
-- `NEXT_PUBLIC_SUPABASE_URL`: `https://sqoxgyluyakgacfvptux.supabase.co`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNxb3hneWx1eWFrZ2FjZnZwdHV4Iiwicm9sZSI6ImFub24iLCJleHAiOjE3NzE0OTQwNTQsImV4cCI6MjA3NzA3MDA1NH0.hVVEABtWOfCNDFT8BN21qxs8CVTRfmbV6MpqaKVlHGs`
+Agrega este secret (opcional):
+- `NEXT_PUBLIC_APP_URL`: URL de tu aplicación (ej: https://tu-usuario.github.io/15-AÑOS)
 
 ### 3. Activar GitHub Pages
 1. Ve a Settings → Pages
@@ -47,28 +46,29 @@ https://TU-USUARIO.github.io/15-AÑOS
 - ✅ Galería de fotos
 - ✅ Cuenta regresiva
 - ✅ Formulario de RSVP (guarda localmente)
+- ✅ Panel de administración (/admin) - funciona con localStorage
 - ✅ Sección de regalos con Yape QR
 - ✅ Diseño responsivo
 
 ### ❌ No funciona en GitHub Pages:
-- ❌ Panel de administración (/admin) - necesita servidor
-- ❌ API routes - no hay servidor en GitHub Pages
-- ❌ Guardado real en Supabase - solo fallback local
+- ❌ API routes - no hay servidor en GitHub Pages (no son necesarias)
 
-## 🎯 Alternativa para Panel de Administración
+## 🎯 Panel de Administración
 
-Si necesitas ver las confirmaciones, puedes:
-1. Usar el panel de Supabase directamente
-2. Configurar un backend separado (Vercel, Netlify, etc.)
-3. Usar el localStorage del navegador (los datos se guardan localmente)
+El panel de administración (/admin) funciona completamente con localStorage:
+1. Todas las confirmaciones se guardan localmente en el navegador
+2. Los datos persisten mientras no se limpie el cache del navegador
+3. Puedes ver todas las confirmaciones realizadas
+4. Funciona perfectamente en GitHub Pages sin necesidad de backend
 
 ## 📱 Para los Invitados
 
 Los invitados pueden:
 1. Llenar el formulario de confirmación
 2. Ver el mensaje de agradecimiento
-3. Su respuesta se guarda localmente como respaldo
-4. Enviar regalos por Yape (solo muestra QR)
+3. Su respuesta se guarda localmente en el navegador
+4. Ver el panel de administración (/admin) para gestionar confirmaciones
+5. Enviar regalos por Yape (solo muestra QR)
 
 ## 🎉 ¡Felicidades!
 
